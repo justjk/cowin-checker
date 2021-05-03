@@ -3,7 +3,7 @@ import json
 from urllib.parse import urlencode
 
 import scrapy
-from items import AvailableLocation
+from cowinchecker.items import AvailableLocation
 
 
 class CowinSpider(scrapy.Spider):
@@ -43,3 +43,4 @@ class CowinSpider(scrapy.Spider):
                                                  "available_capacity"),
                                              min_age_limit=session.get(
                                                  "min_age_limit"))
+                yield location
