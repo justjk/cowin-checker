@@ -3,6 +3,7 @@ import json
 from urllib.parse import urlencode
 
 import scrapy
+from items import AvailableLocation
 
 
 class CowinSpider(scrapy.Spider):
@@ -34,11 +35,11 @@ class CowinSpider(scrapy.Spider):
     def parse(self, response):
         centers = json.loads(response.text).get("centers", None)
         for center in centers:
-            # center_id = center.center_id
-            # name = center.name
-            for session in center.get("sessions",None):
-                if session.get("available_capacity") > 0:
-                    print("date :", session.get("date"))
-                    print("center id :", center.get("center_id"))
-                    print("center name :", center.get("name"))
-                    print("available capacity :", session.get("available_capacity"))
+            for session in center.get("sessions", None):
+                location = AvailableLocation(center_id=center.get("center_id"),
+                                             center_name=center.get("name"),
+                                             date=session.get("date"),
+                                             available_capacity=session.get(
+                                                 "available_capacity"),
+                                             min_age_limit=session.get(
+                                                 "min_age_limit"))
