@@ -6,7 +6,7 @@
 from scrapy.item import Field, Item
 
 
-class CowincheckerItem(Item):
+class AvailableLocation(Item):
     # define the fields for your item here like:
     center_id = Field()
     center_name = Field()
