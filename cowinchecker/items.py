@@ -3,10 +3,13 @@
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/items.html
 
-import scrapy
+from scrapy.item import Field, Item
 
 
-class CowincheckerItem(scrapy.Item):
+class CowincheckerItem(Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    center_id = Field()
+    center_name = Field()
+    date = Field()
+    available_capacity = Field()
+    min_age_limit = Field()
