@@ -16,7 +16,9 @@ class CowincheckerPipeline:
 
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
-        if adapter.get('available_capacity') > 0:
+        if ((adapter.get('available_capacity', 0) > 0) and
+            (spider.age == 0 or
+             adapter.get('min_age_limit') <= spider.age)):
             return item
         else:
             raise DropItem(f"No slot available in {item.get('center_name')}")

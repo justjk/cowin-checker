@@ -26,6 +26,11 @@
     ```
     scrapy crawl cowin -a district_id=307
     ```
+    If you want to filter by age, use the `age` flag as well as shown below. If age flag is set, centers where min age limit is <= age is considered.
+    ```
+    scrapy crawl cowin -a district_id=307 -a age=33
+    ```
+    
   - If centers with vaccine availability is present, you will get a notification (Ubuntu).
   - Check the items.csv to get the center details, date and availability. If there are no centers with vaccines available, the items file will be empty
 
@@ -33,12 +38,12 @@
 ## Dockerized execution
   - Install docker client and daemon (Like duh!)
   - Checkout the code. cd into root directory of codebase. Build docker image
-  ```
-  cd cowinchecker
-  docker build -t cowinchecker:latest .
-  ```
+    ```
+    cd cowinchecker
+    docker build -t cowinchecker:latest .
+    ```
   - From Cowin website, find the district_id for which you want to check. Use browser's Developer toolbar -> Network tab for this.
   - Run docker container and pass district id as argument. For example 307 is the district id for Ernakulam (Kerala)
-  ```
-  docker run cowinchecker:latest  307
-  ```
+    ```
+    docker run cowinchecker:latest 307
+    ```

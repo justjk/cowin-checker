@@ -20,9 +20,10 @@ class CowinSpider(scrapy.Spider):
         }
     }
 
-    def __init__(self, district_id=307, *args, **kwargs):
+    def __init__(self, district_id=307, age=None, *args, **kwargs):
         super(CowinSpider, self).__init__(*args, **kwargs)
         self.district_id = district_id
+        self.age = int(age or 0)
 
     def start_requests(self):
         query_params = {
