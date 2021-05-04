@@ -11,7 +11,7 @@
 
 ## Env setup
   For local development
-  - Setup virtual environment for this project using python3.6
+  - Setup virtual environment for this project using python3.6. I used [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/) for easy setup.
   - Install dependencies mentioned in [requirements.txt](./requirements.txt) using pip3 in the created virtualenv
     ```
     $pip3 install -r requirements.txt
@@ -36,7 +36,19 @@
   - Check the items.csv to get the center details, date and availability. If there are no centers with vaccines available, the items file will be empty
 
 
-## Dockerized execution
+## Cron Job setup
+  - [Cron](https://www.digitalocean.com/community/tutorials/how-to-use-cron-to-automate-tasks-ubuntu-1804) job can be setup to execute the utility at pre-defined intervals automatically
+  - To setup a cron job, make modifications in `cronjob_entrypoint.sh` file as per your project settings and district/age requirements
+  - You can edit your crontab with the following command:
+    ```
+    crontab -e
+    ```
+  - To set a job that runs every 2 minutes to check availability, set the below in the crontab editor -
+    ```
+    * * * * * bash ~/cowinchecker/cronjob_entrypoint.sh  # replace with actual path to source code folder
+    ```
+
+## Dockerized execution (WIP - Notification not working)
   - Install docker client and daemon (Like duh!)
   - Checkout the code. cd into root directory of codebase. Build docker image
     ```
