@@ -11,6 +11,9 @@ from scrapy.exceptions import DropItem
 
 
 class CowincheckerPipeline:
+    def open_spider(self, spider):
+        self.file = open('items.csv', 'w')
+
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
         if adapter.get('available_capacity') > 0:
@@ -20,6 +23,7 @@ class CowincheckerPipeline:
         return item
 
     def close_spider(self, spider):
+        self.file.close()
         stats = spider.crawler.stats.get_stats()
         scraped_count = stats.get('item_scraped_count', 0)
         if scraped_count > 0:
