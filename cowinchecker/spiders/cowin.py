@@ -1,5 +1,6 @@
 import datetime
 import json
+import pathlib
 from urllib.parse import urlencode
 
 import scrapy
@@ -11,16 +12,20 @@ class CowinSpider(scrapy.Spider):
     allowed_domains = ['cowin.gov.in', 'cdn-api.co-vin.in']
     base_url = 'https://cdn-api.co-vin.in/api/v2/'
 
+    custom_settings = {
+        'FEEDS': {
+            pathlib.Path('items.csv'):{
+                'format': 'csv'
+            }
+        }
+    }
+
     def __init__(self, state="Kerala", district="Ernakulam", *args, **kwargs):
         super(CowinSpider, self).__init__(*args, **kwargs)
         self.state = state
         self.district = district
         self.state_id = 17
-        self.district_id = 307
-        self.headers = {
-            "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0",
-            "Accept": "application/json, text/plain, */*"
-        }
+        self.district_id = 516
 
     def start_requests(self):
         query_params = {
