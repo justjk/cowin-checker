@@ -45,7 +45,8 @@
     ```
   - To set a job that runs every 2 minutes to check availability, set the below in the crontab editor -
     ```
-    * * * * * bash ~/cowinchecker/cronjob_entrypoint.sh  # replace with actual path to source code folder
+    # replace with actual path to source code folder
+    */2 * * * * bash ~/cowinchecker/cronjob_entrypoint.sh
     ```
 
 ## Dockerized execution (WIP - Notification not working)
