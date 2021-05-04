@@ -20,12 +20,9 @@ class CowinSpider(scrapy.Spider):
         }
     }
 
-    def __init__(self, state="Kerala", district="Ernakulam", *args, **kwargs):
+    def __init__(self, district_id=307, *args, **kwargs):
         super(CowinSpider, self).__init__(*args, **kwargs)
-        self.state = state
-        self.district = district
-        self.state_id = 17
-        self.district_id = 516
+        self.district_id = district_id
 
     def start_requests(self):
         query_params = {
