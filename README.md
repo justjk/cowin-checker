@@ -47,3 +47,7 @@
     ```
     docker run cowinchecker:latest 307
     ```
+    If you want to filter by age, pass age as second parameter (optional). If age flag is set, centers where min age limit is <= age is considered.
+    ```
+    docker run cowinchecker:latest 307 33
+    ```
