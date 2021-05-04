@@ -8,8 +8,11 @@ from scrapy.item import Field, Item
 
 class AvailableLocation(Item):
     # define the fields for your item here like:
+    state_name = Field()
+    district_name = Field()
     center_id = Field()
     center_name = Field()
     date = Field()
     available_capacity = Field()
     min_age_limit = Field()
+    fee_type = Field()

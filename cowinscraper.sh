@@ -4,4 +4,4 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-scrapy crawl cowin -a district_id=$1 -a age=$2
+scrapy crawl cowin -a district_ids=$1 -a age=$2

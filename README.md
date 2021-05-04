@@ -1,6 +1,6 @@
 # cowin-checker
 
-**Cowin Checker** is a utility that allows you to check the status of available vaccination center in a district of your choice
+**Cowin Checker** is a utility that allows you to check the status of available vaccination center in multiple districts of your choice at the same time. You can also filter based on age and get centers with availability that support your age group.
 
 ## License
   - This utility is released under [MIT License](./LICENSE)
@@ -22,13 +22,14 @@
     sudo apt-get install libnotify-bin
     ```
   - From Cowin website, find the district_id for which you want to check. Use browser's Developer toolbar -> Network tab for this.
-  - Inside the virtual environment, execute below command with your district_id to get the available centers. For example 307 is the district id for Ernakulam (Kerala)
+  - Inside the virtual environment, execute below command with relevant district_ids (comma sperated) to get the available centers. For example 146 is the district id for North Delhi. 147 is for North East Delhi.
     ```
-    scrapy crawl cowin -a district_id=307
+    scrapy crawl cowin -a district_id=146
+    scrapy crawl cowin -a district_id=146,147
     ```
     If you want to filter by age, use the `age` flag as well as shown below. If age flag is set, centers where min age limit is <= age is considered.
     ```
-    scrapy crawl cowin -a district_id=307 -a age=33
+    scrapy crawl cowin -a district_id=146,147 -a age=33
     ```
     
   - If centers with vaccine availability is present, you will get a notification (Ubuntu).
@@ -42,12 +43,13 @@
     cd cowinchecker
     docker build -t cowinchecker:latest .
     ```
-  - From Cowin website, find the district_id for which you want to check. Use browser's Developer toolbar -> Network tab for this.
-  - Run docker container and pass district id as argument. For example 307 is the district id for Ernakulam (Kerala)
+  - From Cowin website, find the district_ids for which you want to check. Use browser's Developer toolbar -> Network tab for this.
+  - Run docker container and pass district id as argument. For example 146 is the district id for North Delhi. 147 is for North East Delhi.
     ```
-    docker run cowinchecker:latest 307
+    docker run cowinchecker:latest 146
+    docker run cowinchecker:latest 146,147
     ```
     If you want to filter by age, pass age as second parameter (optional). If age flag is set, centers where min age limit is <= age is considered.
     ```
-    docker run cowinchecker:latest 307 33
+    docker run cowinchecker:latest 146,147 33
     ```

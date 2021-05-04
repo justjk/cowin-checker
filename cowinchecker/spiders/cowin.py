@@ -20,27 +20,34 @@ class CowinSpider(scrapy.Spider):
         }
     }
 
-    def __init__(self, district_id=307, age=None, *args, **kwargs):
+    def __init__(self, district_ids="307", age=None, *args, **kwargs):
         super(CowinSpider, self).__init__(*args, **kwargs)
-        self.district_id = district_id
+
+        self.district_ids = district_ids.split(',')
         self.age = int(age or 0)
 
     def start_requests(self):
-        query_params = {
-            "district_id": self.district_id,
-            "date": datetime.datetime.now().strftime('%d-%m-%Y')
-        }
-        search_url = self.base_url + \
-            "appointment/sessions/public/calendarByDistrict" + "?" + \
-            urlencode(query_params)
-        yield scrapy.Request(search_url)
+        for district_id in self.district_ids:
+            query_params = {
+                "district_id": district_id,
+                "date": datetime.datetime.now().strftime('%d-%m-%Y')
+            }
+            search_url = self.base_url + \
+                "appointment/sessions/public/calendarByDistrict" + "?" + \
+                urlencode(query_params)
+            yield scrapy.Request(search_url)
 
     def parse(self, response):
         centers = json.loads(response.text).get("centers", None)
         for center in centers:
             for session in center.get("sessions", None):
-                location = AvailableLocation(center_id=center.get("center_id"),
+                location = AvailableLocation(state_name=center.get(
+                                                "state_name"),
+                                             district_name=center.get(
+                                                 "district_name"),
+                                             center_id=center.get("center_id"),
                                              center_name=center.get("name"),
+                                             fee_type=center.get("fee_type"),
                                              date=session.get("date"),
                                              available_capacity=session.get(
                                                  "available_capacity"),
