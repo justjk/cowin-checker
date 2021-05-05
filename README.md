@@ -1,6 +1,8 @@
 # cowin-checker
 
-**Cowin Checker** is a utility that allows you to check the status of available vaccination center in multiple districts of your choice at the same time. You can also filter based on age and get centers with availability that support your age group.
+**Cowin Checker** is a utility that allows you to check the status of available vaccination center in multiple districts of your choice at the same time. You can also filter based on age and get centers with availability that support your age group. Utility searches for dates upto 28 days from current date for availability.
+
+On Ubuntu machines, you get a desktop notification if there is availability. List of locations are available as csv file.
 
 ## License
   - This utility is released under [MIT License](./LICENSE)
@@ -62,7 +64,7 @@
     docker run cowinchecker:latest 146
     docker run cowinchecker:latest 146,147
     ```
-    If you want to filter by age, pass age as second parameter (optional). If age flag is set, centers where min age limit is <= age is considered.
+    If you want to filter by age, pass age as second parameter (optional). If passed, centers where min age limit is <= age is considered.
     ```
     docker run cowinchecker:latest 146,147 33
     ```

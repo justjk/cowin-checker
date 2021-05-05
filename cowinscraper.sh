@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ $# -eq 0 ]; then
-    echo "Enter district id"
+    echo "Enter district id(s)"
     exit 1
 fi
 

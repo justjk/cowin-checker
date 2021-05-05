@@ -4,6 +4,8 @@
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
 
+import datetime
+
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 from pynotifier import Notification
@@ -29,10 +31,11 @@ class CowincheckerPipeline:
         stats = spider.crawler.stats.get_stats()
         scraped_count = stats.get('item_scraped_count', 0)
         if scraped_count > 0:
+            curr_date = curr_date = datetime.datetime.now().strftime(
+                '%d-%m-%Y %H:%M:%S')
             Notification(
                 title=f"Available Centers - {scraped_count}",
-                description='Check items.csv',
-                # icon_path='path/to/image/file/icon.png', # On Windows .ico is required, on Linux - .png
-                duration=5,                              # Duration in seconds
+                description=f"Check items.csv - {curr_date}",
+                duration=5,
                 urgency='normal'
             ).send()

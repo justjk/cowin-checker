@@ -24,18 +24,24 @@ class CowinSpider(scrapy.Spider):
         super(CowinSpider, self).__init__(*args, **kwargs)
 
         self.district_ids = district_ids.split(',')
+        curr_date = datetime.datetime.now()
+        self.search_dates = [curr_date.strftime('%d-%m-%Y')]
+        for i in range(1, 3):
+            curr_date = curr_date + datetime.timedelta(days=7)
+            self.search_dates.append(curr_date.strftime('%d-%m-%Y'))
         self.age = int(age or 0)
 
     def start_requests(self):
         for district_id in self.district_ids:
-            query_params = {
-                "district_id": district_id,
-                "date": datetime.datetime.now().strftime('%d-%m-%Y')
-            }
-            search_url = self.base_url + \
-                "appointment/sessions/public/calendarByDistrict" + "?" + \
-                urlencode(query_params)
-            yield scrapy.Request(search_url)
+            for date in self.search_dates:
+                query_params = {
+                    "district_id": district_id,
+                    "date": date
+                }
+                search_url = self.base_url + \
+                    "appointment/sessions/public/calendarByDistrict" + "?" + \
+                    urlencode(query_params)
+                yield scrapy.Request(search_url)
 
     def parse(self, response):
         centers = json.loads(response.text).get("centers", None)
