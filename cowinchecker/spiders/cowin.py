@@ -26,7 +26,7 @@ class CowinSpider(scrapy.Spider):
         self.district_ids = district_ids.split(',')
         curr_date = datetime.datetime.now()
         self.search_dates = [curr_date.strftime('%d-%m-%Y')]
-        for i in range(1, 3):
+        for i in range(1, 4):
             curr_date = curr_date + datetime.timedelta(days=7)
             self.search_dates.append(curr_date.strftime('%d-%m-%Y'))
         self.age = int(age or 0)
@@ -39,7 +39,7 @@ class CowinSpider(scrapy.Spider):
                     "date": date
                 }
                 search_url = self.base_url + \
-                    "appointment/sessions/public/calendarByDistrict" + "?" + \
+                    "appointment/sessions/calendarByDistrict" + "?" + \
                     urlencode(query_params)
                 yield scrapy.Request(search_url)
 
