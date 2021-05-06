@@ -39,7 +39,13 @@ ROBOTSTXT_OBEY = True
 # Override the default request headers:
 DEFAULT_REQUEST_HEADERS = {
   "Accept": "application/json, text/plain, */*",
+  "Accept-Encoding": "gzip, deflate, br",
   "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0",
+  # "Authorization": "Bearer <set insert token here and uncomment line>",
+  "Origin": "https://selfregistration.cowin.gov.in",
+  "Referer": "https://selfregistration.cowin.gov.in/",
+  "Connection": "keep-alive",
+  "Host": "cdn-api.co-vin.in"
 }
 
 # Enable or disable spider middlewares
