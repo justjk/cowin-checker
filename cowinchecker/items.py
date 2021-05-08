@@ -16,3 +16,5 @@ class AvailableLocation(Item):
     available_capacity = Field()
     min_age_limit = Field()
     fee_type = Field()
+    vaccine = Field()
+    slots = Field()

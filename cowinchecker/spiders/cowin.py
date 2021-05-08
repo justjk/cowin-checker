@@ -58,5 +58,7 @@ class CowinSpider(scrapy.Spider):
                                              available_capacity=session.get(
                                                  "available_capacity"),
                                              min_age_limit=session.get(
-                                                 "min_age_limit"))
+                                                 "min_age_limit"),
+                                             vaccine=session.get("vaccine"),
+                                             slots=session.get("slots"))
                 yield location
