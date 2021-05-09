@@ -17,7 +17,9 @@ class CowinSpider(scrapy.Spider):
         'FEEDS': {
             pathlib.Path('output/items.csv'): {
                 'format': 'csv',
-                'overwrite': True
+                'overwrite': True,
+                'fields': ['date', 'center_name', 'available_capacity',
+                           'min_age_limit', 'vaccine', "district_name"]
             }
         }
     }
@@ -41,7 +43,7 @@ class CowinSpider(scrapy.Spider):
                     "date": date
                 }
                 search_url = self.base_url + \
-                    "appointment/sessions/calendarByDistrict" + "?" + \
+                    "appointment/sessions/public/calendarByDistrict" + "?" + \
                     urlencode(query_params)
                 yield scrapy.Request(search_url)
 
