@@ -23,6 +23,11 @@ On Ubuntu machines, you get a desktop notification if there is availability. Lis
     ```
     sudo apt-get install libnotify-bin
     ```
+  - Set environment variables for enabling Telegram Notifications -
+    ```
+    export COWIN_CHECKER_TELEGRAM_CHANNEL_ID=<TELEGRAM CHANNEL ID>
+    export COWIN_CHECKER_TELEGRAM_BOT_TOKEN=<TELEGRAM BOT TOKEN>
+    ```
   - From Cowin website, find the district_id for which you want to check. Use browser's Developer toolbar -> Network tab for this.
   - Inside the virtual environment, execute below command with relevant district_ids (comma sperated) to get the available centers. For example 146 is the district id for North Delhi. 147 is for North East Delhi.
     ```

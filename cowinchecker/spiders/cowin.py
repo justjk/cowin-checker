@@ -14,8 +14,9 @@ class CowinSpider(scrapy.Spider):
 
     custom_settings = {
         'FEEDS': {
-            pathlib.Path('items.csv'):{
-                'format': 'csv'
+            pathlib.Path('output/items.csv'): {
+                'format': 'csv',
+                'overwrite': True
             }
         }
     }
