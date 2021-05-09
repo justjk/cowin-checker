@@ -17,16 +17,17 @@ from cowinchecker.telegramnotifier import CowinCheckerTelegramBot
 
 class CowincheckerPipeline:
     def open_spider(self, spider):
-        self.district_names = set()
-        self.available_dates = set()
+        self.rows = [("date", "count", "age", "center")]
 
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
         if ((adapter.get('available_capacity', 0) > 0) and
             (spider.age == 0 or
              adapter.get('min_age_limit') <= spider.age)):
-            self.available_dates.add(item.get("date"))
-            self.district_names.add(item.get("district_name"))
+            self.rows.append((item.get("date"),
+                              "{:0>3d}".format(item.get("available_capacity")),
+                              str(item.get("min_age_limit")),
+                              item.get("center_name")))
             return item
         else:
             raise DropItem(f"No slot available in {item.get('center_name')}")
@@ -37,12 +38,11 @@ class CowincheckerPipeline:
         if scraped_count > 0:
             curr_date = datetime.datetime.now(
                 timezone("Asia/Calcutta")).strftime('%d-%m-%Y %H:%M:%S')
-            description = f"Available Slots - {scraped_count} " + \
-                          "(Center + Date).\n" + \
-                          f"Districts - {self.district_names}\n" + \
-                          f"\nDates - {self.available_dates}\n\n" + \
-                          f"Notification Time - {curr_date}\n\n" + \
-                          "Book on https://selfregistration.cowin.gov.in/"
+            description = ""
+            for row in self.rows:
+                description += " | ".join(row) + "\n"
+            description += f"\n\nNotification Time - {curr_date}" + \
+                           "\n\nBook on https://selfregistration.cowin.gov.in/"
             Notification(
                 title=f"Available Centers - {scraped_count}",
                 description=description,
