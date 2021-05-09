@@ -36,10 +36,11 @@ class CowincheckerPipeline:
         if scraped_count > 0:
             curr_date = datetime.datetime.now().strftime(
                 '%d-%m-%Y %H:%M:%S')
-            description = f"Count - {scraped_count}.\n" + \
-                          f"Notification Time - {curr_date}\n" + \
-                          f"Available Dates - {self.available_dates}\n" + \
+            description = f"Available Slots - {scraped_count} " + \
+                          "(Center + Date).\n" + \
                           f"Districts - {self.district_names}\n" + \
+                          f"\nDates - {self.available_dates}\n\n" + \
+                          f"Notification Time - {curr_date}\n\n" + \
                           "Book on https://selfregistration.cowin.gov.in/"
             Notification(
                 title=f"Available Centers - {scraped_count}",
@@ -50,4 +51,5 @@ class CowincheckerPipeline:
             try:
                 CowinCheckerTelegramBot.send_notification(text=description)
             except Exception as e:
-                spider.logger.error(f'Error sending Telegram notification: {e}')
+                spider.logger.error(
+                    f'Error sending Telegram notification: {e}')
