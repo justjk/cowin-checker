@@ -2,7 +2,9 @@
 
 **Cowin Checker** is a utility that allows you to check the status of available vaccination center in multiple districts of your choice at the same time. You can also filter based on age and get centers with availability that support your age group. Utility searches for dates upto 28 days from current date for availability.
 
-On Ubuntu machines, you get a desktop notification if there is availability. List of locations are available as csv file.
+The utility sends notification to a Telegram channel using a Telegram Bot if there is availability.
+
+On Ubuntu desktops, you get a desktop notification if there is availability. List of locations are available as csv file.
 
 ## License
   - This utility is released under [MIT License](./LICENSE)
@@ -56,20 +58,17 @@ On Ubuntu machines, you get a desktop notification if there is availability. Lis
     */2 * * * * bash ~/cowinchecker/cronjob_entrypoint.sh
     ```
 
-## Dockerized execution (WIP - Notification not working)
+## Dockerized execution
   - Install docker client and daemon (Like duh!)
+  - Current dockerized execution does not send desktop notification
   - Checkout the code. cd into root directory of codebase. Build docker image
     ```
     cd cowinchecker
     docker build -t cowinchecker:latest .
     ```
   - From Cowin website, find the district_ids for which you want to check. Use browser's Developer toolbar -> Network tab for this.
-  - Run docker container and pass district id as argument. For example 146 is the district id for North Delhi. 147 is for North East Delhi.
+  - Edit `docker_executor.sh` and set appropriate values for district_ids, age and pass relevant values of Telegram channel id and bot token
+  - Run the shell script to execute the container
     ```
-    docker run cowinchecker:latest 146
-    docker run cowinchecker:latest 146,147
-    ```
-    If you want to filter by age, pass age as second parameter (optional). If passed, centers where min age limit is <= age is considered.
-    ```
-    docker run cowinchecker:latest 146,147 33
+    bash docker_executor.sh
     ```
