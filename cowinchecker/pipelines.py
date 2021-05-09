@@ -9,6 +9,7 @@ import datetime
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 from pynotifier import Notification
+from pytz import timezone
 from scrapy.exceptions import DropItem
 
 from cowinchecker.telegramnotifier import CowinCheckerTelegramBot
@@ -34,8 +35,8 @@ class CowincheckerPipeline:
         stats = spider.crawler.stats.get_stats()
         scraped_count = stats.get('item_scraped_count', 0)
         if scraped_count > 0:
-            curr_date = datetime.datetime.now().strftime(
-                '%d-%m-%Y %H:%M:%S')
+            curr_date = datetime.datetime.now(
+                timezone("Asia/Calcutta")).strftime('%d-%m-%Y %H:%M:%S')
             description = f"Available Slots - {scraped_count} " + \
                           "(Center + Date).\n" + \
                           f"Districts - {self.district_names}\n" + \

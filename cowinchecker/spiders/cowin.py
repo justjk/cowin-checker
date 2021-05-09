@@ -5,6 +5,7 @@ from urllib.parse import urlencode
 
 import scrapy
 from cowinchecker.items import AvailableLocation
+from pytz import timezone
 
 
 class CowinSpider(scrapy.Spider):
@@ -25,7 +26,7 @@ class CowinSpider(scrapy.Spider):
         super(CowinSpider, self).__init__(*args, **kwargs)
 
         self.district_ids = district_ids.split(',')
-        curr_date = datetime.datetime.now()
+        curr_date = datetime.datetime.now(timezone("Asia/Calcutta"))
         self.search_dates = [curr_date.strftime('%d-%m-%Y')]
         for i in range(1, 4):
             curr_date = curr_date + datetime.timedelta(days=7)
