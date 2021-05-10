@@ -43,7 +43,7 @@ class CowinSpider(scrapy.Spider):
                     "date": date
                 }
                 search_url = self.base_url + \
-                    "appointment/sessions/public/calendarByDistrict" + "?" + \
+                    "appointment/sessions/calendarByDistrict" + "?" + \
                     urlencode(query_params)
                 yield scrapy.Request(search_url)
 
