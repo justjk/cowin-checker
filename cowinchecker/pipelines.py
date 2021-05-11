@@ -21,7 +21,7 @@ class CowincheckerPipeline:
 
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
-        if ((adapter.get('available_capacity', 0) > 0) and
+        if ((adapter.get('available_capacity', 0) >= 15) and
             (spider.age == 0 or
              adapter.get('min_age_limit') <= spider.age)):
             self.rows.append((item.get("date"),
