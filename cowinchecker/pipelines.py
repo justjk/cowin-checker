@@ -17,16 +17,17 @@ from cowinchecker.telegramnotifier import CowinCheckerTelegramBot
 
 class CowincheckerPipeline:
     def open_spider(self, spider):
-        self.rows = [("date", "count", "age", "center")]
+        self.rows = [("date", "count", "age", "pincode", "center")]
 
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
-        if ((adapter.get('available_capacity', 0) >= 15) and
+        if ((adapter.get('available_capacity', 0) >= 5) and
             (spider.age == 0 or
              adapter.get('min_age_limit') <= spider.age)):
             self.rows.append((item.get("date"),
                               "{:0>3d}".format(item.get("available_capacity")),
                               str(item.get("min_age_limit")),
+                              str(item.get("pincode")),
                               item.get("center_name")))
             return item
         else:

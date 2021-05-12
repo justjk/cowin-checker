@@ -18,8 +18,8 @@ class CowinSpider(scrapy.Spider):
             pathlib.Path('output/items.csv'): {
                 'format': 'csv',
                 'overwrite': True,
-                'fields': ['date', 'center_name', 'available_capacity',
-                           'min_age_limit', 'vaccine', "district_name"]
+                'fields': ['date', 'min_age_limit', 'pincode', 'center_name',
+                           'available_capacity', 'vaccine', "district_name"]
             }
         }
     }
@@ -57,6 +57,7 @@ class CowinSpider(scrapy.Spider):
                                                  "district_name"),
                                              center_id=center.get("center_id"),
                                              center_name=center.get("name"),
+                                             pincode=center.get("pincode"),
                                              fee_type=center.get("fee_type"),
                                              date=session.get("date"),
                                              available_capacity=session.get(

@@ -12,6 +12,7 @@ class AvailableLocation(Item):
     district_name = Field()
     center_id = Field()
     center_name = Field()
+    pincode = Field()
     date = Field()
     available_capacity = Field()
     min_age_limit = Field()
